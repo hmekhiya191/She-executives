@@ -1,0 +1,168 @@
+/* ================= NAVBAR BASE ================= */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  background: transparent;
+  transition: all 0.35s ease;
+}
+
+/* ================= CONTAINER ================= */
+.nav-container {
+  margin: auto;
+  padding: 18px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: all 0.35s ease;
+}
+
+/* ================= LOGO ================= */
+.logo {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+/* Default logo size */
+.she-logo-img {
+  height: 70px;
+  width: auto;
+  object-fit: contain;
+  transition: all 0.35s ease;
+}
+
+/* ================= NAV LINKS ================= */
+.nav-links {
+  display: flex;
+  gap: 28px;
+  align-items: center;
+}
+
+.nav-link {
+  font-size: 14px;
+  color: rgb(225, 236, 247);
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.nav-link:hover {
+  color: #54e3e3;
+}
+
+/* ================= BUTTON ================= */
+.book-btn {
+  padding: 10px 18px;
+  border-radius: 999px;
+  background: #fff;
+  color: #000;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.book-btn:hover {
+  transform: translateY(-1px);
+}
+
+/* ================= SCROLL EFFECT ================= */
+.navbar-scrolled {
+  background: rgba(15, 32, 60, 0.85);
+  backdrop-filter: blur(18px);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* Shrink navbar */
+.navbar-scrolled .nav-container {
+  padding: 10px 24px;
+}
+
+/* Shrink logo */
+.navbar-scrolled .she-logo-img {
+  height: 50px;
+}
+
+/* ================= MOBILE ================= */
+.menu-btn {
+  display: none;
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+}
+
+/* Mobile menu */
+.mobile-menu {
+  display: none;
+  flex-direction: column;
+  gap: 18px;
+  padding: 20px;
+  align-items: center;
+  background: rgba(15, 32, 60, 0.71);
+  backdrop-filter: blur(16px);
+}
+
+/* ================= TABLET ================= */
+@media (max-width: 1024px) {
+  .nav-links {
+    gap: 20px;
+  }
+
+  .she-logo-img {
+    height: 52px;
+  }
+}
+
+/* ================= MOBILE ================= */
+@media (max-width: 768px) {
+  /* ================= MOBILE ================= */
+@media (max-width: 768px) {
+  .nav-links {
+    display: none;
+  }
+
+  .menu-btn {
+    display: block;
+  }
+
+  .mobile-menu.active {
+    display: flex;
+  }
+
+  /* Default mobile size */
+  .nav-container {
+    padding: 14px 18px;
+  }
+
+  .she-logo-img {
+    height: 48px;
+  }
+
+  /* 🚫 Prevent shrink on scroll (force same size) */
+  .navbar-scrolled .nav-container {
+    padding: 14px 18px !important;
+  }
+
+  .navbar-scrolled .she-logo-img {
+    height: 48px !important;
+  }
+}
+}
+
+/* ================= SMALL MOBILE ================= */
+@media (max-width: 480px) {
+  .nav-container {
+    padding: 12px 14px;
+  }
+
+  .she-logo-img {
+    height: 40px;
+  }
+
+  .mobile-menu {
+    padding: 16px;
+  }
+}

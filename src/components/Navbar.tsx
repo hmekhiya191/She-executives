@@ -1,100 +1,99 @@
+import "./navbar.css";
 import { motion } from "framer-motion";
 import { Menu, X } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import sheLogo from "/She-logo.png";
 
 const navItems = [
-  { label: "Home", href: "#hero" },
+  { label: "Welcome to She Executives", href: "#hero" },
   { label: "About", href: "#mission" },
   { label: "Services", href: "#services" },
   { label: "E-Learning", href: "#elearning" },
   { label: "She's Hired", href: "/shes-hired" },
-  { label: "contact =", href: "/contact" },
+  { label: "Contact", href: "/Contact" },
 ];
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 50);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   return (
-    <motion.nav
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      transition={{ duration: 0.6, ease: "easeOut" }}
-      className="fixed top-0 left-0 right-0 z-50 glass-card"
-      style={{ background: "hsl(216 60% 13% / 0.92)", backdropFilter: "blur(20px)" }}
-    >
-      <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-        <a href="#hero" className="font-display text-2xl italic text-primary">
-          She <span className="text-primary-foreground font-semibold not-italic text-sm tracking-[3px] uppercase ml-1">Executives</span>
+    <motion.nav className={`navbar ${isScrolled ? "navbar-scrolled" : ""}`}>
+      <div className="nav-container">
+
+        <a href="#hero" className="logo">
+          <img src={sheLogo} alt="She Logo" className="she-logo-img" />
         </a>
 
         {/* Desktop */}
-        <div className="hidden md:flex items-center gap-8">
+        <div className="nav-links">
           {navItems.map((item) =>
             item.href.startsWith("/") ? (
-              <Link
-                key={item.label}
-                to={item.href}
-                className="text-sm font-medium tracking-wide text-baby-blue hover:text-primary transition-colors"
-              >
+              <Link key={item.label} to={item.href} className="nav-link">
                 {item.label}
               </Link>
             ) : (
-              <a
-                key={item.label}
-                href={item.href}
-                className="text-sm font-medium tracking-wide text-baby-blue hover:text-primary transition-colors"
-              >
+              <a key={item.label} href={item.href} className="nav-link">
                 {item.label}
               </a>
             )
           )}
-          <a
-            href="https://sheexecutives.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="px-5 py-2.5 rounded-full bg-primary text-primary-foreground text-sm font-semibold hover:opacity-90 transition-opacity"
-          >
+          <a href="https://sheexecutives.com" target="_blank" className="book-btn">
             Book Now
           </a>
         </div>
 
-        {/* Mobile toggle */}
-        <button className="md:hidden text-primary-foreground" onClick={() => setIsOpen(!isOpen)}>
+        {/* Mobile button */}
+        <button className="menu-btn" onClick={() => setIsOpen(!isOpen)}>
           {isOpen ? <X size={24} /> : <Menu size={24} />}
         </button>
       </div>
 
       {/* Mobile menu */}
-      {isOpen && (
-        <motion.div
-          initial={{ opacity: 0, height: 0 }}
-          animate={{ opacity: 1, height: "auto" }}
-          className="md:hidden px-6 pb-6 flex flex-col gap-4"
+      <div className={`mobile-menu ${isOpen ? "active" : ""}`}>
+        {navItems.map((item) =>
+          item.href.startsWith("/") ? (
+            <Link
+              key={item.label}
+              to={item.href}
+              className="nav-link"
+              onClick={() => setIsOpen(false)}
+            >
+              {item.label}
+            </Link>
+          ) : (
+            <a
+              key={item.label}
+              href={item.href}
+              className="nav-link"
+              onClick={() => setIsOpen(false)}
+            >
+              {item.label}
+            </a>
+          )
+        )}
+
+        {/* ✅ Add this */}
+        <a
+          href="https://sheexecutives.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="book-btn mobile-book-btn"
+          onClick={() => setIsOpen(false)}
         >
-          {navItems.map((item) =>
-            item.href.startsWith("/") ? (
-              <Link
-                key={item.label}
-                to={item.href}
-                onClick={() => setIsOpen(false)}
-                className="text-sm font-medium text-baby-blue hover:text-primary transition-colors"
-              >
-                {item.label}
-              </Link>
-            ) : (
-              <a
-                key={item.label}
-                href={item.href}
-                onClick={() => setIsOpen(false)}
-                className="text-sm font-medium text-baby-blue hover:text-primary transition-colors"
-              >
-                {item.label}
-              </a>
-            )
-          )}
-        </motion.div>
-      )}
+          Book Now
+        </a>
+      </div>
     </motion.nav>
   );
 };
