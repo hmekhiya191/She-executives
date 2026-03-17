@@ -1,101 +1,179 @@
 import { motion } from "framer-motion";
-import heroImg from "@/assets/hero-diversity.jpg";
-import pinImg from "@/assets/pin.jpg";
+import { useEffect, useRef, useState } from "react";
+import { gsap } from "gsap";
+import ScrollReveal from "@/components/ui/ScrollReveal.tsx";
+import StatCounter from "@/components/ui/StatCounter";
+
+import img1 from "@/assets/hero1.png";
+import img2 from "@/assets/hero2.png";
+import img3 from "@/assets/hero3.png";
+import img4 from "@/assets/hero4.png";
+import img5 from "@/assets/hero5.png";
+
+const images = [img1, img2, img3, img4, img5];
 
 const HeroSection = () => {
-  return (
-    <section id="hero" className="relative min-h-screen flex items-center overflow-hidden gradient-hero">
-      {/* Background image with overlay */}
+  const [current, setCurrent] = useState(0);
+  const [prev, setPrev] = useState(0);
+  const [loaded, setLoaded] = useState(false);
+
+  const currentRef = useRef(null);
+  const prevRef = useRef(null);
+
+  useEffect(() => {
+  const img = new Image();
+  img.src = images[0];
+  img.onload = () => setLoaded(true);
+}, []);
+
+  // 🔁 Image loop
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setPrev(current);
+      setCurrent((prev) => (prev + 1) % images.length);
+    }, 5000);
+
+    return () => clearInterval(interval);
+  }, [current]);
+
+  // 🎬 Smooth Crossfade (NO blur, NO zoom)
+  useEffect(() => {
+    if (!currentRef.current || !prevRef.current) return;
+
+    gsap.killTweensOf([currentRef.current, prevRef.current]);
+
+    // Initial states
+    gsap.set(currentRef.current, { opacity: 0 });
+    gsap.set(prevRef.current, { opacity: 1 });
+
+    // Animate
+    gsap.to(currentRef.current, {
+      opacity: 1,
+      duration: 2,
+      ease: "power1.inOut",
+    });
+
+    gsap.to(prevRef.current, {
+      opacity: 0,
+      duration: 2,
+      ease: "power1.inOut",
+    });
+  }, [current]);
+
+return (
+  <>
+    {/* HERO SECTION */}
+    <section className="relative min-h-screen flex items-center overflow-hidden bg-[#0f203c]">
+
+      {/* Background */}
       <div className="absolute inset-0">
-        <img src={heroImg} alt="Diverse women executives in leadership" className="w-full h-full object-cover opacity-30" />
-        <div className="absolute inset-0 gradient-hero opacity-80" />
+
+        <div
+          ref={prevRef}
+          className="absolute inset-0 bg-cover bg-center"
+          style={{ backgroundImage: `url(${images[prev]})` }}
+        />
+
+        <div
+          ref={currentRef}
+          className="absolute inset-0 bg-cover bg-center"
+          style={{ backgroundImage: `url(${images[current]})` }}
+        />
+
+        <div className="absolute inset-0 bg-gradient-to-r from-[#0f203c]/55 via-[#123a5a]/45 to-[#1b2f55]/55" />
       </div>
 
-      {/* Floating decorative elements */}
-      <motion.div
-        className="absolute top-20 right-10 w-32 h-32 rounded-full opacity-10"
-        style={{ background: "hsl(var(--primary))" }}
-        animate={{ y: [0, -20, 0], rotate: [0, 5, 0] }}
-        transition={{ duration: 6, repeat: Infinity }}
-      />
-      <motion.div
-        className="absolute bottom-32 left-10 w-20 h-20 rounded-full opacity-10"
-        style={{ background: "hsl(var(--coral))" }}
-        animate={{ y: [0, 15, 0], rotate: [0, -5, 0] }}
-        transition={{ duration: 5, repeat: Infinity, delay: 1 }}
-      />
-
-      <div className="relative z-10 max-w-7xl mx-auto px-6 py-32 md:py-40 grid md:grid-cols-2 gap-12 items-center">
+      {/* Content */}
+      <div className="relative z-10 max-w-7xl mx-auto px-6 w-full">
         <motion.div
-          initial={{ opacity: 0, x: -60 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.8, delay: 0.3 }}
+          initial={{ opacity: 0, y: 60 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.9 }}
+          className="max-w-3xl"
         >
-          <p className="eyebrow text-baby-blue mb-4">Women in Leadership • HR Consulting</p>
-          <h1 className="display-heading text-primary-foreground mb-6">
-            Reinventing the{" "}
-            <span className="text-gradient-accent">Workplace</span>
-            <br />
-            One Hire at a Time
+          <h1 className="font-poppins text-white font-semibold leading-[1.1] text-[48px] md:text-[72px] lg:text-[86px] mb-6">
+            Reinventing the Workplace <br />
+            for{" "}
+            <span className="text-[#5fd3ff] drop-shadow-[0_0_12px_rgba(95,211,255,0.6)]">
+              Greater Gender Diversity
+            </span>
           </h1>
-          <p className="text-lg leading-relaxed text-baby-blue/80 mb-8 max-w-lg">
-            We don't just fill roles — we engineer inclusive talent ecosystems. From executive search to DEIB strategy, She Executives is where Fortune 500 companies come to future-proof their workforce.
-          </p>
-          <div className="flex flex-wrap gap-4">
-            <a
-              href="https://sheexecutives.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="px-8 py-4 rounded-full bg-primary text-primary-foreground font-semibold text-sm tracking-wide hover:scale-105 transition-transform"
-            >
-              Schedule a Talent Audit →
-            </a>
-            <a
-              href="#services"
-              className="px-8 py-4 rounded-full border border-baby-blue/30 text-baby-blue font-medium text-sm tracking-wide hover:bg-baby-blue/10 transition-colors"
-            >
-              Explore Solutions
-            </a>
-          </div>
-        </motion.div>
 
-        <motion.div
-          initial={{ opacity: 0, scale: 0.8, rotate: -5 }}
-          animate={{ opacity: 1, scale: 1, rotate: 0 }}
-          transition={{ duration: 0.8, delay: 0.6, type: "spring" }}
-          className="hidden md:flex justify-center"
-        >
-          <div className="relative">
-            <motion.img
-              src={pinImg}
-              alt="She's Hired enamel pin"
-              className="w-72 h-72 object-contain drop-shadow-2xl"
-              animate={{ y: [0, -12, 0] }}
-              transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-            />
-            <motion.div
-              className="absolute -bottom-4 -right-4 px-4 py-2 rounded-full bg-coral text-primary-foreground text-xs font-bold tracking-wider uppercase"
-              animate={{ scale: [1, 1.05, 1] }}
-              transition={{ duration: 2, repeat: Infinity }}
-            >
-              ✨ She's Hired!
-            </motion.div>
-          </div>
+          <p className="uppercase tracking-[4px] text-white/60 text-xs md:text-sm">
+            HR CONSULTING THAT SUPPORTS AND PARTNERS WITH BUSINESS
+          </p>
         </motion.div>
       </div>
 
-      {/* Trusted By marquee */}
-      <div className="absolute bottom-0 left-0 right-0 bg-navy-deep/80 backdrop-blur-sm py-4 overflow-hidden">
+      {/* Marquee */}
+      <div className="absolute bottom-0 left-0 right-0 bg-[#0a1428]/60 backdrop-blur-md py-4 overflow-hidden">
         <div className="flex animate-marquee whitespace-nowrap">
-          {["Fortune 500 Ready", "✦", "DEIB Strategy", "✦", "Executive Search", "✦", "HR Consulting", "✦", "Talent Pipeline", "✦", "Leadership Development", "✦", "Fortune 500 Ready", "✦", "DEIB Strategy", "✦", "Executive Search", "✦", "HR Consulting", "✦", "Talent Pipeline", "✦", "Leadership Development", "✦"].map((item, i) => (
-            <span key={i} className="mx-4 text-xs font-medium tracking-[3px] uppercase text-baby-blue/50">
+          {[
+            "Fortune 500 Ready","✦","DEIB Strategy","✦","Executive Search","✦",
+            "HR Consulting","✦","Talent Pipeline","✦","Leadership Development","✦"
+          ].map((item, i) => (
+            <span key={i} className="mx-6 text-xs tracking-[3px] uppercase text-white/50">
               {item}
             </span>
           ))}
         </div>
       </div>
     </section>
-  );
+
+    {/* STATS */}
+<section className="relative py-20 bg-gradient-to-br from-[#0f203c] via-[#11294a] to-[#0a1428] overflow-hidden">
+
+  {/* subtle glow background */}
+  <div className="absolute inset-0 opacity-20 blur-3xl bg-[radial-gradient(circle_at_20%_30%,#5fd3ff,transparent_40%),radial-gradient(circle_at_80%_70%,#77e3d4,transparent_40%)]"></div>
+
+  <div className="relative max-w-6xl mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-y-12 gap-x-6 text-center">
+
+    {[ 
+      { end: 8, suffix: "+", label: "Years of Impact" },
+      { end: 50, suffix: "+", label: "States & Provinces" },
+      { end: 500, suffix: "+", label: "Placements Made" },
+      { end: 100, suffix: "", label: "Women to Hire" },
+    ].map((item, i) => (
+
+      <div key={i} className="flex flex-col items-center">
+
+        <StatCounter {...item} />
+
+        {/* subtle divider */}
+        <div className="w-8 h-[1px] bg-white/20 mt-4"></div>
+
+      </div>
+
+    ))}
+
+  </div>
+</section>
+
+    {/* MISSION */}
+{/* MISSION */}
+<section className="py-24 bg-[#f8f5f0]">
+
+  <div className="max-w-3xl mx-auto px-6 text-center">
+
+ 
+
+    <h2 className="font-poppins text-5xl md:text-5xl font-semibold text-[#1a1a1a] mb-6 leading-tight">
+      Successful High Earners
+    </h2>
+       {/* premium divider */}
+    <div className="w-20 h-[2px] mx-auto mb-8 bg-gradient-to-r from-transparent via-[#c9a96e] to-transparent"></div>
+
+    <p className="text-lg text-[#555] leading-relaxed">
+      SHE Executives redefines HR by championing DEI, wage gap negotiation, and compliance.
+      Nearly a decade of results partnering with Fortune 400 firms, business owners, and small businesses
+      as their trusted HR extension.
+    </p>
+
+  </div>
+
+</section>
+  </>
+);
 };
 
 export default HeroSection;

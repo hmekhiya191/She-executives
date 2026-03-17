@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import sheLogo from "/She-logo.png";
 
 const navItems = [
-  { label: "Welcome to She Executives", href: "#hero" },
+  { label: "Home", href: "#hero" },
   { label: "About", href: "#mission" },
   { label: "Services", href: "#services" },
   { label: "E-Learning", href: "#elearning" },
