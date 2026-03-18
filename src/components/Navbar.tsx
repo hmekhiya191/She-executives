@@ -6,8 +6,8 @@ import { Link } from "react-router-dom";
 import sheLogo from "/She-logo.png";
 
 const navItems = [
-  { label: "Home", href: "#hero" },
-  { label: "About", href: "#mission" },
+  { label: "Home", href: "/" },
+  { label: "About", href: "/about" },
   { label: "Services", href: "#services" },
   { label: "E-Learning", href: "#elearning" },
   { label: "She's Hired", href: "/shes-hired" },
@@ -31,9 +31,9 @@ const Navbar = () => {
     <motion.nav className={`navbar ${isScrolled ? "navbar-scrolled" : ""}`}>
       <div className="nav-container">
 
-        <a href="#hero" className="logo">
+        <Link to="/" className="logo">
           <img src={sheLogo} alt="She Logo" className="she-logo-img" />
-        </a>
+        </Link>
 
         {/* Desktop */}
         <div className="nav-links">
