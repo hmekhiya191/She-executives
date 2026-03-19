@@ -152,7 +152,7 @@ const About = () => {
 
 
 {/* SHE CARES */}
-<section className="relative py-24 overflow-hidden bg-gradient-to-b from-[#e0f2fe] to-[#f8fbff]">
+{/* <section className="relative py-24 overflow-hidden bg-gradient-to-b from-[#e0f2fe] to-[#f8fbff]">
 <div className="absolute -top-32 -right-32 w-[400px] h-[400px] bg-sky-300 opacity-20 rounded-full blur-3xl"></div>
 
 <div className="absolute -bottom-32 -left-32 w-[400px] h-[400px] bg-blue-200 opacity-20 rounded-full blur-3xl"></div>
@@ -161,7 +161,7 @@ const About = () => {
 
     <ScrollReveal>
 
-      {/* Badge */}
+      
       <div className="inline-flex items-center gap-2 px-5 py-2 rounded-full border border-sky-200 bg-sky-100/70 backdrop-blur-sm mb-8">
         <Heart size={16} className="text-sky-500" />
         <span className="text-xs tracking-[0.2em] uppercase text-sky-600 font-medium">
@@ -169,17 +169,17 @@ const About = () => {
         </span>
       </div>
 
-      {/* Heading */}
+      
       <h2 className="font-display text-3xl md:text-5xl font-semibold text-gray-900 mb-6">
         SHE <span className="text-sky-500 italic">Cares</span>
       </h2>
 
-      {/* Description */}
+      
       <p className="text-lg text-gray-600 max-w-2xl mx-auto mb-14 leading-relaxed">
         Providing resume support, mental health resources, mentoring cohorts, and community support for women at every stage.
       </p>
 
-      {/* Cards */}
+     
 <div className="grid md:grid-cols-3 gap-10 max-w-5xl mx-auto mb-14 text-center">
 
   {[
@@ -202,7 +202,7 @@ const About = () => {
         {item.desc}
       </p>
 
-      {/* animated line */}
+      
       <div className="mx-auto h-[2px] w-12 bg-sky-300 group-hover:w-20 transition-all duration-300"></div>
 
     </div>
@@ -211,7 +211,7 @@ const About = () => {
 
 </div>
 
-      {/* CTA */}
+      
       <Link
         to="/contact"
         className="inline-flex items-center gap-2 px-7 py-3.5 bg-sky-500 text-white rounded-xl shadow-md hover:bg-sky-600 hover:shadow-lg transition-all duration-300"
@@ -223,11 +223,11 @@ const About = () => {
     </ScrollReveal>
   </div>
 
-  {/* Background glow */}
+  
   <div className="absolute top-[-100px] right-[-100px] w-72 h-72 bg-sky-200 opacity-20 rounded-full blur-3xl"></div>
   <div className="absolute bottom-[-100px] left-[-100px] w-72 h-72 bg-sky-300 opacity-20 rounded-full blur-3xl"></div>
 
-</section>
+</section> */}
 
 
 

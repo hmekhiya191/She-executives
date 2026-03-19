@@ -154,15 +154,15 @@ const Contact = () => {
 
       <div className="flex gap-5">
         
-        <a href="https://instagram.com" target="_blank" className="text-gray-500 hover:text-sky-500 transition">
+        <a href="https://www.instagram.com/sheexecutives/" target="_blank" className="text-gray-500 hover:text-sky-500 transition">
           <Instagram size={24} />
         </a>
 
-        <a href="https://facebook.com" target="_blank" className="text-gray-500 hover:text-sky-500 transition">
+        <a href="https://www.facebook.com/Sheexecutives/#" target="_blank" className="text-gray-500 hover:text-sky-500 transition">
           <Facebook size={24} />
         </a>
 
-        <a href="https://linkedin.com" target="_blank" className="text-gray-500 hover:text-sky-500 transition">
+        <a href="https://www.linkedin.com/company/she-executives/" target="_blank" className="text-gray-500 hover:text-sky-500 transition">
           <Linkedin size={24} />
         </a>
 

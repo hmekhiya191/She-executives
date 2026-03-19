@@ -81,9 +81,9 @@ const FooterSection = () => {
 <div>
   <h4 className="font-display text-lg font-semibold mb-4 text-accent">Services</h4>
   <ul className="space-y-2 text-sm text-baby-blue/60">
-    <li><Link to="/services" className="hover:text-accent">Executive Placement</Link></li>
-    <li><Link to="/services" className="hover:text-accent">Direct Hire</Link></li>
-    <li><Link to="/services" className="hover:text-accent">HR Consulting</Link></li>
+    <li><Link to="/service" className="hover:text-accent">Executive Placement</Link></li>
+    <li><Link to="/service" className="hover:text-accent">Direct Hire</Link></li>
+    <li><Link to="/service" className="hover:text-accent">HR Consulting</Link></li>
     <li><Link to="/elearning" className="hover:text-accent">E-Learning</Link></li>
   </ul>
 </div>
@@ -92,9 +92,9 @@ const FooterSection = () => {
 <div>
   <h4 className="font-display text-lg font-semibold mb-4 text-accent">Initiatives</h4>
   <ul className="space-y-2 text-sm text-baby-blue/60">
-    <li><Link to="/shes-hired">She's Hired</Link></li>
-    <li><Link to="/about">SHE Cares</Link></li>
-    <li><Link to="/about">DEI Resources</Link></li>
+    <li><Link to="/shes-hired" className="hover:text-accent">She's Hired</Link></li>
+    <li><Link to="/shes-hired" className="hover:text-accent">SHE Cares</Link></li>
+    <li><Link to="/contact" className="hover:text-accent">Contact Us</Link></li>
   </ul>
 </div>
 
@@ -108,15 +108,15 @@ const FooterSection = () => {
     </li>
     <li className="flex gap-2">
       <Linkedin className="w-4 h-4 text-accent" />
-      <a href="https://linkedin.com" target="_blank">LinkedIn</a>
+      <a href="https://www.linkedin.com/company/she-executives/" target="_blank">LinkedIn</a>
     </li>
     <li className="flex gap-2">
       <Instagram className="w-4 h-4 text-accent" />
-      <a href="https://instagram.com" target="_blank">Instagram</a>
+      <a href="https://www.instagram.com/sheexecutives/" target="_blank">Instagram</a>
     </li>
     <li className="flex gap-2">
       <Facebook className="w-4 h-4 text-accent" />
-      <a href="https://facebook.com" target="_blank">Facebook</a>
+      <a href="https://www.facebook.com/Sheexecutives/#" target="_blank">Facebook</a>
     </li>
   </ul>
 </div>

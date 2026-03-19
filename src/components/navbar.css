@@ -49,14 +49,14 @@
 }
 
 .nav-link:hover {
-  color: #54e3e3;
+  color: #56b0ff;
 }
 
 /* ================= BUTTON ================= */
 .book-btn {
   padding: 10px 18px;
   border-radius: 999px;
-  background: #fff;
+  background: #fff;   
   color: #000;
   font-size: 14px;
   font-weight: 600;

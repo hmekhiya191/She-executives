@@ -4,13 +4,17 @@ import "@/components/Hero.css";
 
 const testimonials = [
   {
-    text: "SHE Executives transformed our leadership pipeline. Their commitment to diversity isn't just talk—it's measurable impact.",
+    text: "SHE Executives transformed our leadership pipeline. Their commitment to diversity isn't just talk, it's measurable impact.",
     author: "Fortune 400 HR Director"
   },
   {
     text: "A truly strategic partner. They understand both people and business outcomes.",
     author: "VP Talent, Global Manufacturing"
   },
+//     {
+//     text: "They rewrote my resume, coached me through interviews, and supported me when I needed it most. I don’t think I’d have gotten the job without them, they didn’t just place me, they prepared me..",
+//     author: "Placed Candidate · Director of Supply Chain"
+//   },
   {
     text: "We saw immediate improvement in leadership diversity and culture.",
     author: "CHRO, Consumer Goods"
@@ -19,6 +23,10 @@ const testimonials = [
     text: "Professional, insightful, and deeply committed to inclusion.",
     author: "HR Head, Tech Company"
   },
+//     {
+//     text: "When I lost my job, I was devastated. She Executives helped me negotiate my severance, and I walked away with more than expected,but more importantly, they reminded me I’m more than my job title.",
+//     author: "Severance Client · Returned as Placed Candidate"
+//   },
   {
     text: "Their network and approach are unmatched in the industry.",
     author: "Director, Supply Chain"
@@ -30,7 +38,7 @@ const testimonials = [
   {
     text: "Exceptional results with a human-first approach.",
     author: "Talent Leader, Fortune 500"
-  }
+  },
 ];
 
 const TestimonialSection = () => {

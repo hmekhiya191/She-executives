@@ -1,316 +1,889 @@
-import { motion } from "framer-motion";
+import { useState } from "react";
 import { Link } from "react-router-dom";
-import { ArrowLeft, Heart, Sparkles, Star } from "lucide-react";
-import pinImg from "@/assets/pin.jpg";
+import {
+  Target,
+  ArrowRight,
+  Upload,
+  Heart,
+  Users,
+  Sparkles,
+  BookOpen,
+  Brain, Briefcase, DollarSign, ShieldCheck, TrendingUp,  Star,  HandHeart, Building2, Handshake, Phone, UserCheck, Award
+} from "lucide-react";
+import { Button } from "@/components/ui/button";
+import AnimatedSection from "@/components/ui/AnimatedSection";
+import { fadeUp } from "@/components/ui/animations"
+import pinImg from "@/assets/pin.png";
+import shesHiredHero from "@/assets/shes-hired-hero.jpg";
+import FooterSection from "@/components/FooterSection";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { useRef } from "react";
+
+
+
+
+
+
 
 const tiers = [
   {
-    number: "Tier 01",
-    name: "The Spark",
-    price: "$25",
-    description: "Grab a She's Hired tee and wear the movement. Every purchase funds a job-readiness kit for a woman re-entering the workforce.",
-    featured: false,
-  },
-  {
-    number: "Tier 02",
-    name: "The Catalyst",
-    price: "$100",
-    description: "Sponsor a woman's resume makeover + interview coaching session. Includes the exclusive She's Hired enamel pin — the one Fortune 500 recruiters are already asking about.",
+    number: "01",
+    name: "The Pledge",
+    desc: "Commit to hire one qualified professional from our network at absolutely no cost to you. We source, screen, and present candidates. You make the hire. We handle everything else.",
+    cta: "Take the Pledge",
     featured: true,
   },
   {
-    number: "Tier 03",
-    name: "The Trailblazer",
-    price: "$500",
-    description: "Fund a full career transition package: resume, LinkedIn optimization, mock interviews, and 90 days of mentorship. Your name on our Wall of Change Agents.",
-    featured: false,
+    number: "02",
+    name: "Post-Hire Contribution",
+    desc: "After a successful placement, we will show you what the waived recruiting fee would have been and invite a voluntary contribution to the campaign. Pay it forward, on your terms.",
+    cta: "Learn More",
+  },
+  {
+    number: "03",
+    name: "Mission Sponsorship",
+    desc: "No open roles? No problem. Make a direct donation to the She's Hired initiative and help fund outreach, resources, and candidate support for displaced professionals.",
+    cta: "Become a Sponsor",
+  },
+  {
+    number: "04",
+    name: "Strategic Hiring Partnership",
+    desc: "For organizations ready to commit at scale. Includes a flat fee structure, onsite hiring events at your location, branded campaigns, and comprehensive partnership support.",
+    cta: "Partner With Us",
   },
 ];
 
-const steps = [
-  { title: "Choose Your Level", description: "Pick the tier that matches your passion and budget." },
-  { title: "We Match a Woman", description: "Your contribution is paired with a woman ready to level up." },
-  { title: "She Gets Hired", description: "Watch the transformation. You'll get updates on her journey." },
-  { title: "The Ripple Effect", description: "One hire changes a family, a community, an industry." },
+const processSteps = [
+  {
+    icon: Phone,
+    title: "You Make the Pledge",
+    desc: "Reach out via email or our website. We will schedule a brief call to understand your team's needs and timeline.",
+  },
+  {
+    icon: Users,
+    title: "We Source and Screen",
+    desc: "Our team identifies qualified candidates from our network of Black women and women of color professionals.",
+  },
+  {
+    icon: UserCheck,
+    title: "You Meet the Candidates",
+    desc: "We present pre-vetted professionals aligned to your requirements. You interview and select.",
+  },
+  {
+    icon: Award,
+    title: "She's Hired.",
+    desc: "A career is restored, your team gains exceptional talent, and the ripple effect begins. No invoices. No friction.",
+  },
+];
+
+
+const stats = [
+  { value: "$0", label: "Cost to pledge a hire" },
+  { value: "100%", label: "Handled by our team" },
+  { value: "4", label: "Ways to get involved" },
+];
+
+
+const pledgedCompanies = [
+  "Nike", "Google", "Target", "Microsoft", "Salesforce",
+  "Deloitte", "Accenture", "IBM", "Amazon", "Meta",
 ];
 
 const ShesHired = () => {
+  const [pledgeEmail, setPledgeEmail] = useState("");
+  const [pledgeSubmitted, setPledgeSubmitted] = useState(false);
+
+   // ✅ INSIDE component
+  const pinRef = useRef(null);
+
+  const { scrollYProgress } = useScroll({
+    target: pinRef,
+    offset: ["start end", "end start"],
+  });
+
+  const pinY = useTransform(scrollYProgress, [0, 1], [50, -50]);
+  const pinRotate = useTransform(scrollYProgress, [0, 1], [-8, 8]); 
+
+  const handlePledge = (e: React.FormEvent) => {
+    e.preventDefault();
+    setPledgeSubmitted(true);
+    setPledgeEmail("");
+  };
+
   return (
     <div className="min-h-screen bg-background">
-      {/* Header */}
-      <section className="gradient-hero relative overflow-hidden">
-        <motion.div
-          className="absolute top-10 left-10 w-40 h-40 rounded-full opacity-10"
-          style={{ background: "hsl(var(--primary))" }}
-          animate={{ scale: [1, 1.3, 1], rotate: [0, 180, 360] }}
-          transition={{ duration: 12, repeat: Infinity }}
-        />
-        <motion.div
-          className="absolute bottom-20 right-20 w-24 h-24 rounded-full opacity-10"
-          style={{ background: "hsl(var(--coral))" }}
-          animate={{ y: [0, -30, 0] }}
-          transition={{ duration: 5, repeat: Infinity }}
-        />
+    
 
-        <div className="max-w-4xl mx-auto px-6 py-20 md:py-28 text-center relative z-10">
-          <Link to="/" className="inline-flex items-center gap-2 text-baby-blue/60 text-sm mb-8 hover:text-primary transition-colors">
-            <ArrowLeft className="w-4 h-4" /> Back to She Executives
-          </Link>
+      {/* 🔷 HERO */}
+      <section className="relative min-h-[85vh] flex items-center overflow-hidden">
+        <div
+          className="absolute inset-0 bg-cover bg-center"
+          style={{ backgroundImage: `url(${shesHiredHero})` }}
+        />
+        <div className="absolute inset-0 bg-navy-deep/80 backdrop-blur-sm" />
 
+        <div className="relative z-10 container mx-auto px-6">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7 }}
+            transition={{ duration: 0.8 }}
+            className="max-w-3xl"
           >
-            <p className="eyebrow text-baby-blue mb-4">She Executives Presents</p>
-            <h1 className="font-display text-6xl md:text-8xl font-semibold text-primary-foreground leading-[0.95] mb-3">
-              <span className="italic text-primary">She's</span><br />Hired
-            </h1>
-            <p className="font-display text-xl md:text-2xl italic text-baby-blue mb-6">A Labor of Love Initiative</p>
-            <span className="inline-block px-5 py-2 rounded-full bg-primary text-primary-foreground text-xs font-bold tracking-[2px] uppercase">
-              2025 Campaign
+            <span className="text-sm uppercase tracking-[0.3em] text-baby-blue font-semibold">
+              Campaign 2026
             </span>
-          </motion.div>
-        </div>
-      </section>
 
-      {/* Quote */}
-      <section className="bg-primary px-6 py-16 text-center">
-        <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: true }}
-        >
-          <span className="font-display text-8xl text-primary-foreground/15 leading-none block">"</span>
-          <p className="font-display text-2xl md:text-3xl italic text-primary-foreground max-w-lg mx-auto mb-5 leading-relaxed">
-            Every woman deserves to hear 'You're hired' — and mean it.
-          </p>
-          <p className="text-xs font-semibold tracking-[2px] uppercase text-primary-foreground/60">— Priscilla Anderson, Founder</p>
-        </motion.div>
-      </section>
+            <h1 className="font-display text-5xl md:text-7xl font-bold text-white mt-4 leading-tight">
+              She's Hired
+            </h1>
 
-      {/* Mission */}
-      <section className="section-padding bg-card">
-        <div className="max-w-3xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-          >
-            <p className="eyebrow mb-3">The Mission</p>
-            <h2 className="font-display text-3xl md:text-4xl font-semibold text-foreground mb-6">
-              More Than a Campaign —<br />It's a <span className="italic text-primary">Movement</span>
-            </h2>
-            <p className="body-text mb-6">
-              She's Hired is She Executives' labor of love — a grassroots campaign to bridge the employment gap for women of color, career-changers, and returning professionals. In an era where the HR consulting industry is booming ($53B+ projected), we believe the growth shouldn't just benefit corporations. It should lift up the women who power them.
+            <p className="font-display text-2xl md:text-3xl text-accent italic mt-2">
+              100 Women. 120 Days. One Movement.
             </p>
-            <p className="body-text">
-              Every dollar raised goes directly to career services: professional development workshops, resume writing, interview prep, and placement support. No overhead fluff. Just women getting hired.
+
+            <p className="mt-6 text-lg text-baby-blue/80 max-w-2xl leading-relaxed">
+              Pledge to hire a Successful High Earner and join the companies
+              transforming leadership. Upload your resume to be part of the
+              next cohort of intentional leaders.
             </p>
-          </motion.div>
 
-          {/* Stats */}
-          <div className="grid grid-cols-3 gap-4 mt-10">
-            {[
-              { num: "67%", label: "of women of color face hiring bias" },
-              { num: "2.5×", label: "longer job search for returning moms" },
-              { num: "$0", label: "cost to candidates — always" },
-            ].map((s, i) => (
-              <motion.div
-                key={s.label}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.1 }}
-                className="text-center p-5 rounded-xl bg-background border-t-[3px] border-primary"
-              >
-                <span className="stat-number block mb-1">{s.num}</span>
-                <span className="text-xs text-muted-foreground">{s.label}</span>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Pin Section */}
-      <section className="section-padding bg-background text-center">
-        <div className="max-w-2xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-          >
-            <p className="eyebrow mb-3">The Pin</p>
-            <h2 className="font-display text-3xl font-semibold text-foreground mb-2">
-              Wear the Movement
-            </h2>
-          </motion.div>
-          <motion.div
-            className="my-8 flex justify-center"
-            initial={{ opacity: 0, scale: 0.8, rotate: -10 }}
-            whileInView={{ opacity: 1, scale: 1, rotate: 0 }}
-            viewport={{ once: true }}
-            transition={{ type: "spring", stiffness: 100 }}
-          >
-            <motion.img
-              src={pinImg}
-              alt="She's Hired enamel pin"
-              className="w-64 h-64 object-contain"
-              style={{ filter: "drop-shadow(0 12px 32px rgba(27,43,75,0.18))" }}
-              animate={{ y: [0, -8, 0] }}
-              transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-            />
-          </motion.div>
-          <p className="body-text max-w-md mx-auto mb-4">
-            The She's Hired pin isn't just an accessory — it's a statement. Every pin purchased funds real career services for a real woman. Pin it on your blazer. Start a conversation. Change a life.
-          </p>
-          <p className="text-sm font-semibold tracking-wider uppercase text-primary flex items-center justify-center gap-2">
-            <Sparkles className="w-4 h-4" /> Every pin tells a story
-          </p>
-        </div>
-      </section>
-
-      {/* How It Works */}
-      <section className="section-padding bg-card">
-        <div className="max-w-3xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-center mb-12"
-          >
-            <p className="eyebrow mb-3">How It Works</p>
-            <h2 className="font-display text-3xl md:text-4xl font-semibold text-foreground">
-              Your Impact in <span className="italic text-primary">4 Steps</span>
-            </h2>
-          </motion.div>
-
-          <div className="space-y-0">
-            {steps.map((step, i) => (
-              <motion.div
-                key={step.title}
-                initial={{ opacity: 0, x: -20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.1 }}
-                className="flex gap-5 pb-8 relative"
-              >
-                {i < steps.length - 1 && (
-                  <div className="absolute left-[30px] top-[68px] w-0.5 h-[calc(100%-68px)]" style={{ background: "linear-gradient(to bottom, hsl(var(--primary)), transparent)" }} />
-                )}
-                <div className="w-16 h-16 rounded-full bg-secondary flex items-center justify-center flex-shrink-0 relative z-10">
-                  <span className="font-display text-xl font-bold text-primary">{i + 1}</span>
-                </div>
-                <div className="pt-2">
-                  <h4 className="font-display text-xl font-semibold text-foreground mb-1">{step.title}</h4>
-                  <p className="text-sm text-muted-foreground">{step.description}</p>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Tiers */}
-      <section className="section-padding gradient-hero">
-        <div className="max-w-3xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-center mb-12"
-          >
-            <p className="eyebrow text-baby-blue mb-3">Join the Movement</p>
-            <h2 className="font-display text-3xl md:text-4xl font-semibold text-primary-foreground">
-              Choose Your <span className="italic text-primary">Impact Level</span>
-            </h2>
-          </motion.div>
-
-          <div className="flex flex-col gap-4">
-            {tiers.map((tier, i) => (
-              <motion.div
-                key={tier.name}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.1 }}
-                className={`glass-card rounded-2xl p-7 relative overflow-hidden ${tier.featured ? "border-primary/40 bg-primary/10" : ""}`}
-              >
-                {tier.featured && (
-                  <span className="absolute top-4 right-4 px-3 py-1 rounded-full bg-primary text-primary-foreground text-[9px] font-bold tracking-[2px] uppercase">
-                    Start Here
-                  </span>
-                )}
-                <p className="text-[10px] font-bold tracking-[3px] uppercase text-baby-blue/60 mb-2">{tier.number}</p>
-                <div className="flex items-baseline gap-3 mb-2">
-                  <h3 className="font-display text-2xl font-semibold text-primary-foreground">{tier.name}</h3>
-                  <span className="font-display text-lg text-primary">{tier.price}</span>
-                </div>
-                <p className="text-sm text-baby-blue/60 leading-relaxed mb-5">{tier.description}</p>
-                <a
-                  href="https://sheexecutives.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={`inline-block px-6 py-3 text-xs font-semibold tracking-wider uppercase rounded-full transition-all ${
-                    tier.featured
-                      ? "bg-primary text-primary-foreground hover:scale-105"
-                      : "border border-baby-blue/30 text-baby-blue hover:bg-baby-blue/10"
-                  }`}
-                >
-                  Join Now
+            <div className="mt-8 flex flex-wrap gap-4">
+              {/* 🔥 Blooming Button (kept) */}
+              <Button size="lg" className="pledge-pulse bg-accent text-white hover:scale-105" asChild>
+                <a href="#pledge">
+                  <Target size={18} /> Take the Pledge
                 </a>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
+              </Button>
 
-      {/* Final CTA */}
-      <section className="section-padding bg-primary text-center">
-        <div className="max-w-2xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-          >
-            <Heart className="w-8 h-8 text-primary-foreground/30 mx-auto mb-4" />
-            <h2 className="font-display text-3xl md:text-4xl font-semibold text-primary-foreground mb-4">
-              Be the Reason She Gets Hired
-            </h2>
-            <p className="text-primary-foreground/70 mb-8">
-              Join hundreds of allies, companies, and change agents who believe that when she wins, we all win.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-3 justify-center">
-              <a
-                href="https://sheexecutives.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="px-8 py-4 rounded-full bg-primary-foreground text-navy font-semibold text-sm tracking-wide hover:scale-105 transition-transform"
+              <Button
+                size="lg"
+                variant="outline"
+                className="
+                  border-blue-400 
+                  text-blue-400 
+                  bg-transparent 
+                  hover:bg-transparent 
+                  hover:text-white 
+                  hover:border-white 
+                  transition-all duration-300
+                "
+                asChild
               >
-                Support the Campaign
-              </a>
-              <a
-                href="mailto:Priscillaanderson@sheexecutives.com"
-                className="px-8 py-4 rounded-full border border-primary-foreground/40 text-primary-foreground text-sm font-medium tracking-wide hover:bg-primary-foreground/10 transition-colors"
-              >
-                Partner With Us
-              </a>
+                <a href="#resume">
+                  <Upload size={18} /> Upload Resume
+                </a>
+              </Button>
             </div>
           </motion.div>
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="bg-navy-deep px-6 py-10 text-center">
-        <p className="font-display text-2xl italic text-primary mb-1">She Executives</p>
-        <p className="text-[10px] tracking-[3px] uppercase text-baby-blue/40 mb-6">Women in Leadership</p>
-        <div className="flex justify-center gap-6 mb-6">
-          <Link to="/" className="text-xs text-baby-blue/40 hover:text-primary transition-colors">Home</Link>
-          <a href="https://sheexecutives.com" target="_blank" rel="noopener noreferrer" className="text-xs text-baby-blue/40 hover:text-primary transition-colors">Book Now</a>
-          <a href="mailto:Priscillaanderson@sheexecutives.com" className="text-xs text-baby-blue/40 hover:text-primary transition-colors">Contact</a>
+
+
+{/* Quote */}
+<section className="bg-secondary py-16 md:py-18 relative overflow-hidden">
+  <div className="container mx-auto px-6 text-center relative z-10">
+
+    <motion.div
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true }}
+      variants={fadeUp}
+    >
+
+      {/* Decorative Quote */}
+      <div className="font-display text-[80px] md:text-[100px] text-secondary-foreground/10 leading-none ">
+        “
+      </div>
+
+      {/* Quote Text */}
+      <blockquote
+        className="
+          font-display 
+          text-2xl md:text-[32px] 
+          italic 
+          text-secondary-foreground 
+          leading-relaxed 
+          max-w-2xl mx-auto
+        "
+      >
+        Finding a job is work. Finding other people jobs is a{" "}
+        <span className="text-accent not-italic font-semibold">
+          labor of love
+        </span>.
+      </blockquote>
+
+      {/* Divider (faded edges) */}
+      <div className="w-40 h-[1px] mx-auto bg-gradient-to-r from-transparent via-accent/50 to-transparent my-6"></div>
+
+      {/* Brand */}
+      <p className="text-xs font-semibold tracking-[0.3em] uppercase text-secondary-foreground/70">
+        She Executives
+      </p>
+
+    </motion.div>
+  </div>
+
+  {/* 🔷 Soft Background Glow */}
+  <div className="absolute inset-0 flex justify-center items-center pointer-events-none">
+    <div className="w-[350px] h-[350px] bg-accent/10 blur-3xl rounded-full opacity-30"></div>
+  </div>
+</section>
+
+
+
+{/* 🔷 Mission */}
+<section className="py-20 md:py-24 bg-background">
+  <div className="container mx-auto px-6">
+
+    {/* Content */}
+    <motion.div
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true }}
+      variants={fadeUp}
+      custom={0}
+      className="max-w-3xl mx-auto text-center"
+    >
+      {/* Eyebrow */}
+      <span className="text-xs tracking-[0.35em] uppercase text-accent font-semibold">
+        Our Mission
+      </span>
+
+      {/* Title */}
+      <h2 className="font-display text-3xl md:text-5xl font-bold text-foreground mt-4 leading-tight">
+        Re-employing{" "}
+        <span className="text-accent italic">
+          Black Women and Women of Color
+        </span>
+      </h2>
+
+      {/* Body */}
+      <p className="mt-6 text-muted-foreground leading-relaxed">
+        Following the DEI rollbacks of recent years, thousands of qualified Black
+        women and women of color were displaced from careers they had built.
+        She Executives created the <span className="text-accent font-medium">She's Hired</span> campaign to reconnect
+        these professionals with companies still committed to building diverse,
+        high-performing teams.
+      </p>
+
+      {/* Highlight Line */}
+      <p className="mt-5 font-semibold text-foreground">
+        This is not charity.{" "}
+        <span className="text-accent">
+          This is a strategic investment in overlooked talent.
+        </span>
+      </p>
+
+      {/* Divider */}
+      <div className="w-16 h-[2px] bg-gradient-to-r from-transparent via-accent/50 to-transparent mx-auto mt-8"></div>
+    </motion.div>
+
+    {/* 🔷 Stats */}
+<motion.div
+  initial="hidden"
+  whileInView="visible"
+  viewport={{ once: true }}
+  variants={fadeUp}
+  custom={1}
+  className="grid grid-cols-1 sm:grid-cols-3 gap-6 mt-12 max-w-3xl mx-auto"
+>
+  {stats.map((s, i) => (
+    <div
+      key={i}
+      className="
+        relative
+        bg-card
+        border border-border
+        rounded-xl
+        py-6 px-4
+        text-center
+        shadow-sm
+        hover:shadow-md hover:-translate-y-1
+        transition-all duration-300
+        overflow-hidden
+      "
+    >
+      {/* 🔷 Top Blue Line */}
+      <div className="absolute top-0 left-0 w-full h-[3px] bg-accent rounded-t-xl"></div>
+
+      {/* Value */}
+      <span className="font-display text-4xl md:text-5xl font-bold text-foreground block leading-none mb-2">
+        {s.value}
+      </span>
+
+      {/* Label */}
+      <span className="text-sm text-muted-foreground">
+        {s.label}
+      </span>
+    </div>
+  ))}
+</motion.div>
+   
+
+  </div>
+</section>
+
+
+
+{/* Tiers */}
+<section className="py-16 md:py-20 bg-navy">
+  <div className="container mx-auto px-6 max-w-3xl">
+
+    {/* Heading */}
+    <motion.div
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true }}
+      variants={fadeUp}
+      className="text-center mb-12"
+    >
+      <span className="text-accent text-xs tracking-[0.3em] uppercase">
+        How to Participate
+      </span>
+
+      <h2 className="font-display text-4xl md:text-5xl font-bold text-white mt-4">
+        Four Ways to Make an Impact
+      </h2>
+    </motion.div>
+
+    {/* Cards */}
+    <div className="flex flex-col gap-6">
+
+      {tiers.map((tier, i) => (
+        <motion.div
+          key={i}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          variants={fadeUp}
+          custom={i}
+          className={`group relative rounded-xl p-7 md:p-8 border backdrop-blur-md transition-all duration-300 hover:-translate-y-1 overflow-hidden ${
+            tier.featured
+              ? "bg-white/5 border-accent/40 shadow-[0_0_30px_rgba(59,130,246,0.15)]"
+              : "bg-white/5 border-white/20 hover:border-accent/30"
+          }`}
+        >
+
+          {/* Hover Glow */}
+          <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition duration-300 bg-gradient-to-r from-accent/10 via-transparent to-accent/10 blur-xl" />
+
+          {/* Badge */}
+          {tier.featured && (
+            <span className="absolute top-4 right-4 bg-accent text-white text-[10px] font-bold tracking-[2px] uppercase px-3 py-1 rounded-full shadow-md">
+              Start Here
+            </span>
+          )}
+
+          {/* Tier Label */}
+          <div className="text-[10px] font-semibold tracking-[3px] uppercase mb-2 text-accent">
+            Tier {tier.number}
+          </div>
+
+          {/* Title */}
+          <h3 className="font-display text-xl md:text-2xl font-bold text-white mb-3">
+            {tier.name}
+          </h3>
+
+          {/* Description */}
+          <p className="text-white/70 text-sm leading-relaxed mb-6 max-w-md">
+            {tier.desc}
+          </p>
+
+          {/* CTA */}
+          <a
+            href="https://sheexecutives.com"
+            className={`inline-flex items-center justify-center px-6 py-3 text-xs font-semibold tracking-wider uppercase rounded-full transition-all duration-300 ${
+              tier.featured
+                ? "bg-accent text-white hover:bg-accent/90 shadow-md hover:shadow-lg"
+                : "border border-white/30 text-white hover:bg-white hover:text-navy"
+            }`}
+          >
+            {tier.cta}
+            <ArrowRight size={14} className="ml-2 transition-transform group-hover:translate-x-1" />
+          </a>
+
+        </motion.div>
+      ))}
+
+    </div>
+  </div>
+</section>
+
+
+
+
+{/* 🔷 Process Steps */}
+<section className="py-24 bg-background">
+  <div className="container mx-auto px-6 max-w-4xl">
+
+    {/* Heading */}
+    <motion.div
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true }}
+      variants={fadeUp}
+      custom={0}
+      className="text-center mb-16"
+    >
+      <span className="text-[10px] tracking-[0.4em] uppercase text-accent font-semibold">
+        The Process
+      </span>
+
+      <h2 className="font-display text-3xl md:text-5xl font-bold text-foreground mt-4 leading-tight">
+        Simple. Seamless. <span className="italic text-accent">Handled for You.</span>
+      </h2>
+    </motion.div>
+
+    {/* Timeline */}
+    <div className="flex flex-col relative">
+
+      {processSteps.map((step, i) => (
+        <motion.div
+          key={i}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          variants={fadeUp}
+          custom={i}
+          className="relative flex gap-8 items-start pb-12 group"
+        >
+
+          {/* 🔷 Vertical Line */}
+          {i < processSteps.length - 1 && (
+            <div className="absolute left-8 top-16 w-[2px] h-[calc(100%-20px)] 
+              bg-gradient-to-b from-accent/50 via-accent/20 to-transparent" />
+          )}
+
+          {/* 🔷 Icon */}
+          <div className="
+            w-16 h-16 flex-shrink-0
+            rounded-full
+            bg-gradient-to-br from-white to-sky-50
+            border border-accent/20
+            flex items-center justify-center
+            shadow-sm
+            group-hover:shadow-md
+            group-hover:scale-105
+            transition-all duration-300
+            relative z-10
+          ">
+            <img
+              src={pinImg}
+              alt=""
+              className="w-100  object-contain opacity-80 group-hover:opacity-100 transition"
+            />
+          </div>
+
+          {/* 🔷 Content */}
+          <div className="pt-1 max-w-lg">
+
+            <h4 className="font-display text-2xl md:text-2xl font-bold text-foreground mb-2 tracking-wide group-hover:text-accent transition">
+              {step.title}
+            </h4>
+
+            <p className="text-base md:text-[17px] text-muted-foreground leading-relaxed">
+              {step.desc}
+            </p>
+
+          </div>
+
+        </motion.div>
+      ))}
+
+    </div>
+
+  </div>
+</section>
+
+
+
+
+
+
+
+{/* 🔷 Pin Section */}
+<section
+  ref={pinRef}
+  className="relative py-24 md:py-28 overflow-hidden gradient-hero relative overflow-hidden"
+>
+  {/* 🔷 Background Glow Effects */}
+  <div className="absolute top-0 left-0 w-72 h-72 bg-sky-400/20 blur-[120px] rounded-full"></div>
+  <div className="absolute bottom-0 right-0 w-80 h-80 bg-cyan-300/20 blur-[140px] rounded-full"></div>
+
+  <div className="container mx-auto px-6 text-center max-w-2xl relative z-10">
+
+    {/* Heading */}
+    <motion.div
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true }}
+      variants={fadeUp}
+      custom={0}
+    >
+      <span className="text-xs tracking-[0.4em] uppercase text-sky-300 font-semibold">
+        The Symbol
+      </span>
+
+      <h2 className="font-display text-3xl md:text-5xl font-bold text-white mt-4 leading-tight">
+        Wear It. Share It.{" "}
+        <span className="text-sky-400 italic">Mean It.</span>
+      </h2>
+    </motion.div>
+
+    {/* Pin Image */}
+    <motion.div
+      style={{ y: pinY, rotate: pinRotate }}
+      className="flex justify-center my-12"
+    >
+      <div className="relative">
+        {/* glow behind pin */}
+        <div className="absolute inset-0 bg-sky-400/30 blur-3xl rounded-full"></div>
+
+        <img
+          src={pinImg}
+          alt="She's Hired enamel pin"
+          className="relative w-64 md:w-72 drop-shadow-[0_20px_60px_rgba(0,0,0,0.6)]"
+        />
+      </div>
+    </motion.div>
+
+    {/* Content */}
+    <motion.div
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true }}
+      variants={fadeUp}
+      custom={1}
+    >
+      <p className="text-white/80 text-base md:text-lg leading-relaxed">
+        The She's Hired pin represents more than a campaign — it's a commitment.
+        Every pin worn is a signal to displaced professionals that they are
+        <span className="text-white font-medium"> seen, valued, and worth investing in.</span>
+      </p>
+
+      <p className="text-sky-300 font-semibold text-sm tracking-[0.3em] uppercase mt-8">
+        Every Hire Changes a Life
+      </p>
+    </motion.div>
+
+  </div>
+</section>
+      
+      {/* <section className="bg-navy section-padding">
+        <div className="container mx-auto">
+          <AnimatedSection className="text-center mb-12">
+            <h2 className="font-display text-3xl md:text-4xl font-bold text-white">
+              Campaign <span className="text-accent italic">Progress</span>
+            </h2>
+          </AnimatedSection>
+
+          <AnimatedSection className="max-w-2xl mx-auto mb-12">
+            <div className="flex justify-between text-sm text-baby-blue/60 mb-2">
+              <span>37 Hired</span>
+              <span>100 Goal</span>
+            </div>
+
+            <div className="w-full h-4 bg-white/10 rounded-full overflow-hidden">
+              <motion.div
+                initial={{ width: 0 }}
+                whileInView={{ width: "37%" }}
+                viewport={{ once: true }}
+                transition={{ duration: 1.5 }}
+                className="h-full bg-accent rounded-full"
+              />
+            </div>
+          </AnimatedSection>
+
+          {/* <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+            <StatCounter value="37" label="Women Hired" delay={0} />
+            <StatCounter value="28" label="Companies Pledged" delay={0.1} />
+            <StatCounter value="450+" label="Resumes Received" delay={0.2} />
+            <StatCounter value="63" label="Positions Left" delay={0.3} />
+          </div> 
         </div>
-        <p className="text-[11px] text-baby-blue/20">© {new Date().getFullYear()} She Executives. All rights reserved.</p>
-      </footer>
+      </section> */}
+
+      {/* 🔷 PLEDGE WALL */}
+      <section id="pledge" className="section-padding bg-background">
+  <div className="container mx-auto">
+
+    {/* 🔷 Heading */}
+    <AnimatedSection className="text-center mb-16">
+      <h2 className="font-display text-3xl md:text-5xl font-bold text-foreground leading-tight">
+        The <span className="text-accent italic">Pledge Wall</span>
+      </h2>
+
+      <p className="mt-4 text-muted-foreground max-w-2xl mx-auto leading-relaxed">
+        Companies we are calling on to take the pledge. Add your organization to the wall.
+      </p>
+    </AnimatedSection>
+
+    {/* 🔷 Companies */}
+    <div className="flex flex-wrap justify-center gap-4 mb-16">
+      {pledgedCompanies.map((company, i) => (
+        <motion.div
+          key={company}
+          initial={{ opacity: 0, y: 20, scale: 0.9 }}
+          whileInView={{ opacity: 1, y: 0, scale: 1 }}
+          transition={{ delay: i * 0.05 }}
+          whileHover={{ scale: 1.08, y: -3 }}
+          className="
+            px-6 py-3 
+            rounded-full 
+            bg-card 
+            border border-border 
+            text-sm font-semibold text-foreground
+            shadow-sm hover:shadow-md
+            transition-all duration-300 cursor-pointer
+          "
+        >
+          {company}
+        </motion.div>
+      ))}
+
+      {/* ➕ Add Company */}
+      <motion.div
+        whileHover={{ scale: 1.1 }}
+        className="
+          px-6 py-3 
+          rounded-full 
+          border-2 border-dashed border-accent/40 
+          text-accent font-semibold text-sm
+          hover:bg-accent/10 
+          transition-all duration-300 
+          cursor-pointer
+        "
+      >
+        + Add Your Company
+      </motion.div>
+    </div>
+
+    {/* 🔷 Form */}
+    <AnimatedSection className="max-w-md mx-auto">
+      {pledgeSubmitted ? (
+        <motion.div
+          initial={{ scale: 0.85, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          className="
+            text-center 
+            bg-card 
+            rounded-2xl 
+            p-10 
+            border border-border
+            shadow-lg
+          "
+        >
+          <Sparkles className="text-accent mx-auto mb-4" size={42} />
+          <h3 className="font-display text-xl font-bold text-foreground">
+            You're In 🚀
+          </h3>
+          <p className="mt-2 text-sm text-muted-foreground">
+            Thank you for taking the pledge. We’ll connect with you shortly.
+          </p>
+        </motion.div>
+      ) : (
+        <form
+          className="
+            bg-card 
+            rounded-2xl 
+            p-8 
+            border border-border 
+            shadow-md
+          "
+          onSubmit={handlePledge}
+        >
+          <h3 className="font-display text-xl text-center font-semibold mb-6">
+            Pledge to Hire SHE
+          </h3>
+
+          <input
+            type="email"
+            value={pledgeEmail}
+            onChange={(e) => setPledgeEmail(e.target.value)}
+            placeholder="your@company.com"
+            required
+            className="
+              w-full px-4 py-3 
+              rounded-lg 
+              border border-border 
+              bg-background 
+              text-foreground text-sm
+              focus:outline-none 
+              focus:ring-2 focus:ring-accent/40
+              transition-all
+            "
+          />
+
+          <Button
+            className="
+              w-full mt-5 
+              bg-accent text-white 
+              hover:scale-105 
+              transition-all duration-300
+            "
+          >
+            <Target size={16} /> Take the Pledge
+          </Button>
+        </form>
+      )}
+    </AnimatedSection>
+
+  </div>
+</section>
+
+      {/* 🔷 RESUME CTA */}
+<section id="resume" className="bg-navy section-padding relative overflow-hidden">
+  <div className="container mx-auto text-center max-w-3xl relative z-10">
+
+    {/* 🔷 Icon */}
+    <Upload className="mx-auto text-accent mb-6" size={50} />
+
+    {/* 🔷 Heading */}
+    <h2 className="font-display text-3xl md:text-5xl text-white leading-tight">
+      Upload Your <span className="text-accent italic">Resume</span>
+    </h2>
+
+    {/* 🔷 Subtext */}
+    <p className="text-baby-blue/80 mt-5 text-sm md:text-base leading-relaxed max-w-xl mx-auto">
+      Join the SHE talent pool and get matched with companies actively hiring
+      intentional, high-impact leaders like you.
+    </p>
+
+    {/* 🔷 CTA Button */}
+ <Button
+  size="lg"
+  className="
+    mt-10 px-8 py-4 
+    bg-accent text-white 
+    rounded-full 
+    hover:bg-sky-600 hover:shadow-lg 
+    hover:scale-105 
+    transition-all duration-300 
+    shadow-lg
+  "
+  asChild
+>
+  <Link to="/contact">
+    <Upload size={16} /> Upload Resume
+  </Link>
+</Button>
+
+    {/* 🔷 Micro trust line */}
+    <p className="text-xs text-baby-blue/60 mt-4">
+      Takes less than 2 minutes • Secure upload
+    </p>
+  </div>
+
+  {/* 🔷 Background Glow Effect */}
+  <div className="absolute inset-0 flex justify-center items-center pointer-events-none">
+    <div className="w-[400px] h-[400px] bg-accent/20 blur-3xl rounded-full opacity-30"></div>
+  </div>
+</section>
+
+      
+      {/* 🔷 SHE CARES */}
+<section className="section-padding bg-background relative overflow-hidden">
+  <div className="container mx-auto">
+
+    {/* 🔷 Heading */}
+    <AnimatedSection className="text-center mb-16">
+      <Heart className="mx-auto text-accent mb-5" size={44} />
+
+      <h2 className="font-display text-3xl md:text-5xl font-bold text-foreground leading-tight">
+        SHE Cares <span className="text-accent italic">Nonprofit</span>
+      </h2>
+
+      <p className="mt-5 text-muted-foreground max-w-2xl mx-auto leading-relaxed text-sm md:text-base">
+        Empowering women at every stage from career growth to mental wellness
+        through meaningful support, mentorship, and community.
+      </p>
+    </AnimatedSection>
+
+    {/* 🔷 Cards */}
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+      {[
+        {
+          icon: BookOpen,
+          title: "Resume Building",
+          desc: "Professional resume workshops and 1-on-1 reviews to elevate your leadership story.",
+        },
+        {
+          icon: Brain,
+          title: "Mental Health",
+          desc: "Access wellness resources, peer support, and guided sessions during transitions.",
+        },
+        {
+          icon: Users,
+          title: "Mentoring Cohorts",
+          desc: "Grow alongside ambitious women, guided by experienced industry leaders.",
+        },
+      ].map((item, i) => (
+        <AnimatedSection key={item.title} delay={i * 0.1}>
+          <div
+            className="
+              h-full p-8 rounded-2xl 
+              bg-card border border-border 
+              text-center
+              transition-all duration-300 
+              hover:-translate-y-2 hover:shadow-xl
+              group
+            "
+          >
+            <item.icon
+              className="
+                mx-auto text-accent mb-5 
+                transition-transform duration-300 
+                group-hover:scale-110
+              "
+              size={34}
+            />
+
+            <h3 className="font-display text-lg font-semibold text-foreground">
+              {item.title}
+            </h3>
+
+            <p className="mt-3 text-sm text-muted-foreground leading-relaxed">
+              {item.desc}
+            </p>
+          </div>
+        </AnimatedSection>
+      ))}
+    </div>
+
+    {/* 🔷 CTA */}
+    <div className="text-center mt-14">
+      <Button
+        size="lg"
+        className="
+          px-8 py-4 
+          bg-accent text-white 
+          rounded-full 
+          hover:bg-sky-600 hover:shadow-lg
+          hover:scale-105 
+          transition-all duration-300 
+          shadow-lg
+        "
+      >
+        <Heart size={16} /> Support SHE Cares
+      </Button>
+
+      <p className="text-xs text-muted-foreground mt-3">
+        Support initiatives that create real impact
+      </p>
+    </div>
+
+  </div>
+
+  {/* 🔷 Subtle background glow */}
+  <div className="absolute inset-0 flex justify-center items-center pointer-events-none">
+    <div className="w-[500px] h-[500px] bg-accent/10 blur-3xl rounded-full opacity-30"></div>
+  </div>
+</section>
+
+<FooterSection/>
+
+     
     </div>
   );
 };

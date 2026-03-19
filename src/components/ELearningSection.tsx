@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { Play, Award, BookOpen, TrendingUp } from "lucide-react";
-import elearningImg from "@/assets/elearning.jpg";
-import mentorshipImg from "@/assets/mentorship.jpg";
+import elearningImg from "@/assets/elearning.png";
+import mentorshipImg from "@/assets/mentorship.png";
 import { Footer } from "react-day-picker";
 import FooterSection from "./FooterSection";
 

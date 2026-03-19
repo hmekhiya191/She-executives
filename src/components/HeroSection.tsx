@@ -224,7 +224,7 @@ return (
               },
             ].map((service, i) => (
               <ScrollReveal key={service.title} delay={i * 0.15}>
-                <Link to="/services" className="group block">
+                <Link to="/service" className="group block">
                   <div className="relative overflow-hidden rounded-lg mb-6">
                     <img
                       src={service.image}
@@ -250,7 +250,7 @@ return (
           <ScrollReveal>
             <div className="text-center mt-12">
               <Button variant="default" size="lg" asChild>
-                <Link to="/services">
+                <Link to="/service">
                   Explore All Services <ArrowRight size={16} />
                 </Link>
               </Button>
