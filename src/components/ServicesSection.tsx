@@ -18,7 +18,7 @@ import {
 import { Button } from "@/components/ui/button";
 import AnimatedSection from "@/components/ui/AnimatedSection";
 
-import servicesPlacement from "@/assets/hero1.jpg";
+import servicesPlacement from "@/assets/executive-placement.jpg";
 import servicesDirecthire from "@/assets/services-directhire.jpg";
 import servicesConsulting from "@/assets/services-consulting.jpg";
 import FooterSection from "./FooterSection";
@@ -44,7 +44,7 @@ const Services = () => {
             </h1>
 
             <p className="text-baby-blue/80 text-sm md:text-base leading-relaxed">
-            We don’t just fill roles; we engineer inclusive talent ecosystems. From executive search to Diversity, Equity, Inclusion & Belonging (DEIB) strategy, She Executives is where Fortune 500 companies come to build their next great hire.
+            We don't just fill roles; we engineer inclusive talent ecosystems. From executive search to Diversity, Equity, Inclusion & Belonging (DEIB) strategy, She Executives is where companies come to build their next great hire.
             </p>
           </motion.div>
         </div>

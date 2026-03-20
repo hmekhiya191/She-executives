@@ -48,9 +48,33 @@ const Navbar = () => {
               </a>
             )
           )}
-          <a href="https://sheexecutives.com" target="_blank" className="book-btn">
-            Book Now
-          </a>
+            <Link
+              to="/contact"
+              className="
+                book-btn
+                px-5 py-2.5
+                rounded-full
+                text-sm font-medium
+                text-white
+
+                bg-white/10
+                backdrop-blur-md
+                border border-white/20
+
+                shadow-[0_8px_30px_rgba(0,0,0,0.05)]
+
+                hover:bg-white/20
+                hover:border-white/30
+                hover:shadow-[0_10px_40px_rgba(0,0,0,0.1)]
+                hover:scale-105
+
+                transition-all duration-300
+              "
+            >
+              Book a Consultation
+            </Link>
+
+{/* <a href="https://sheexecutives.com" target="_blank" className="book-btn"> Book Now </a> */}
         </div>
 
         {/* Mobile button */}
@@ -91,9 +115,9 @@ const Navbar = () => {
           className="book-btn mobile-book-btn"
           onClick={() => setIsOpen(false)}
         >
-          Book Now
+          Book a Consultation
         </a>
-      </div>
+      </div>  
     </motion.nav>
   );
 };

@@ -5,7 +5,7 @@ import "@/components/Hero.css";
 const testimonials = [
   {
     text: "SHE Executives transformed our leadership pipeline. Their commitment to diversity isn't just talk, it's measurable impact.",
-    author: "Fortune 400 HR Director"
+    author: "Small Business Owner, HR Director"
   },
   {
     text: "A truly strategic partner. They understand both people and business outcomes.",
@@ -37,7 +37,7 @@ const testimonials = [
   },
   {
     text: "Exceptional results with a human-first approach.",
-    author: "Talent Leader, Fortune 500"
+    author: "Talent Leader, Tech Company"
   },
 ];
 

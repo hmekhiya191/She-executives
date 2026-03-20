@@ -4,6 +4,7 @@ import elearningImg from "@/assets/elearning.png";
 import mentorshipImg from "@/assets/mentorship.png";
 import { Footer } from "react-day-picker";
 import FooterSection from "./FooterSection";
+import { Link } from "react-router-dom";
 
 const courses = [
   {
@@ -170,14 +171,14 @@ const ELearningSection = () => {
           viewport={{ once: true }}
           className="text-center mt-12"
         >
-          <a
-            href="https://sheexecutives.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-block px-8 py-4 rounded-full bg-primary text-primary-foreground font-semibold text-sm tracking-wide hover:scale-105 transition-transform"
-          >
-            Browse All Courses →
-          </a>
+
+
+<Link
+  to="/contact"
+  className="inline-block px-8 py-4 rounded-full bg-primary text-primary-foreground font-semibold text-sm tracking-wide hover:scale-105 transition-transform"
+>
+  Browse All Courses →
+</Link>
         </motion.div>
       </div>
     <FooterSection/>  

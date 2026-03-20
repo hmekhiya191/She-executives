@@ -83,13 +83,13 @@ return (
 
         <div
           ref={prevRef}
-          className="absolute inset-0 bg-cover bg-center"
+          className="absolute inset-0 bg-cover bg-[center_2%]"
           style={{ backgroundImage: `url(${images[prev]})` }}
         />
 
         <div
           ref={currentRef}
-          className="absolute inset-0 bg-cover bg-center"
+          className="absolute inset-0 bg-cover bg-[center_2%]" 
           style={{ backgroundImage: `url(${images[current]})` }}
         />
 
@@ -104,9 +104,9 @@ return (
           transition={{ duration: 0.9 }}
           className="max-w-3xl"
         >
-          <p className="uppercase tracking-[4px] text-white/80 text-[30px] md:text-xs">
-            Women in Leadership • HR Consulting
-          </p>
+         <p className="uppercase tracking-[4px] text-white/80 text-xs md:text-sm lg:text-base">
+          Women in Leadership
+        </p>
 
           <h1 className="font-poppins text-white font-semibold leading-[1.1] text-[48px] md:text-[72px] lg:text-[86px] mb-6">
             Reinventing the Workplace  <br />

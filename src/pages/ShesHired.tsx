@@ -14,7 +14,7 @@ import { Button } from "@/components/ui/button";
 import AnimatedSection from "@/components/ui/AnimatedSection";
 import { fadeUp } from "@/components/ui/animations"
 import pinImg from "@/assets/pin.png";
-import shesHiredHero from "@/assets/shes-hired-hero.jpg";
+import shesHiredHero from "@/assets/hero-diversity.jpg";
 import FooterSection from "@/components/FooterSection";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
@@ -260,11 +260,7 @@ const ShesHired = () => {
 
       {/* Body */}
       <p className="mt-6 text-muted-foreground leading-relaxed">
-        Following the DEI rollbacks of recent years, thousands of qualified Black
-        women and women of color were displaced from careers they had built.
-        She Executives created the <span className="text-accent font-medium">She's Hired</span> campaign to reconnect
-        these professionals with companies still committed to building diverse,
-        high-performing teams.
+        Following 2025's DEI rollbacks, which displaced thousands of qualified Black women and women of color from hard earned careers, She Executives, a women led recruiting firm, launched the <span className="text-accent font-medium">She's Hired</span> . We're reconnecting these professionals with companies committed to building diverse, high performing teams, placing women in leadership roles at every level, from individual contributors to executive 
       </p>
 
       {/* Highlight Line */}
