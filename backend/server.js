@@ -7,6 +7,7 @@ import multer from "multer";
 dotenv.config();
 
 const app = express();
+console.log("🔥 BACKEND FILE IS RUNNING");
 
 /* ================= CORS ================= */
 const allowedOrigins = [
@@ -18,26 +19,34 @@ const allowedOrigins = [
 app.use(
   cors({
     origin: function (origin, callback) {
+      // Allow all origins if undefined (like Postman) or match allowedOrigins
       if (!origin || allowedOrigins.includes(origin)) {
         callback(null, true);
       } else {
-        callback(null, true); // 🔥 allow all (temporary safe fix)
+        callback(null, true); // temporary safe fix
       }
     },
     methods: ["GET", "POST"],
   })
 );
 
+/* ================= BODY PARSER ================= */
 app.use(express.json());
 
+/* ================= PORT ================= */
 const PORT = process.env.PORT || 5000;
+console.log("Server will run on port:", PORT);
 
 /* ================= MULTER ================= */
 const upload = multer({ storage: multer.memoryStorage() });
 
 /* ================= NODEMAILER ================= */
+if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
+  console.warn("❌ EMAIL_USER or EMAIL_PASS not set in env variables");
+}
+
 const transporter = nodemailer.createTransport({
-  service: "gmail", // ✅ more stable than host config
+  service: "gmail",
   auth: {
     user: process.env.EMAIL_USER,
     pass: process.env.EMAIL_PASS,
@@ -88,7 +97,7 @@ app.post(
         });
       }
 
-      /* ================= FILES ================= */
+      /* ================= FILE ATTACHMENTS ================= */
       const attachments = [];
 
       if (req.files?.attachment?.[0]) {
@@ -102,20 +111,6 @@ app.post(
         attachments.push({
           filename: req.files.resume[0].originalname,
           content: req.files.resume[0].buffer,
-        });
-      }
-
-
-
-
-
-
-      
-      // ✅ Validation
-      if (!name || !email) {
-        return res.status(400).json({
-          success: false,
-          message: "Name and Email are required",
         });
       }
 
@@ -355,8 +350,4 @@ app.listen(PORT, () => {
   console.log(`🚀 Server running on http://localhost:${PORT}`);
 });
 
-
-app.get("/", (req, res) => {
-  res.send("API running ✅");
-});
 

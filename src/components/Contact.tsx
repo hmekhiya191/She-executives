@@ -38,15 +38,15 @@ useEffect(() => {
   }
 }, [success]);
 
-const handleFileChange = (e: any) => {
-  if (e.target.files[0]) {
+const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  if (e.target.files && e.target.files[0]) {
     setFileName(e.target.files[0].name);
   }
 };
 
 
 
-const handleSubmit = async (e: any) => {
+const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
   e.preventDefault();
   setLoading(true);
 
@@ -71,10 +71,11 @@ const handleSubmit = async (e: any) => {
     if (attachment) formData.append("attachment", attachment);
     if (resume) formData.append("resume", resume);
 
-const res = await fetch("https://she-executives-backend.onrender.com", {
+const res = await fetch("https://she-executives-backend.onrender.com/send-email", {
   method: "POST",
   body: formData,
 });
+
 const text = await res.text();
 console.log(text);
 
