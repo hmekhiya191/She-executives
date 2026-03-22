@@ -84,7 +84,7 @@ const Contact = () => {
       if (resume) formData.append("resume", resume);
 
       const res = await fetch(
-        "https://she-executives-backend.onrender.com/send-email",
+        "http://localhost:5000/send-email",
         {
           method: "POST",
           body: formData,
