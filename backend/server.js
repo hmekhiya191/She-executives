@@ -11,8 +11,10 @@ app.use(
   cors({
     origin: [
       "http://localhost:5173",
-      "https://your-netlify-site.netlify.app",
+      "https://she-executives.netlify.app",
     ],
+    methods: ["GET", "POST"],
+    credentials: true,
   })
 );
 app.use(express.json());
