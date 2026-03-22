@@ -1,73 +1,137 @@
-# Welcome to your Lovable project
+# 🌐 Frontend – She's Executives Website
 
-## Project info
+This is the frontend of the She's Executives platform, built with modern UI/UX principles. It includes dynamic pages, contact forms, and seamless API integration with the backend.
 
-**URL**: https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID
+---
 
-## How can I edit this code?
+## ✨ Features
 
-There are several ways of editing your application.
+* 🎨 Modern responsive UI
+* 📩 Contact form with file upload support
+* 🔗 Connected to backend API
+* ⚡ Fast performance using Vite
+* 📱 Mobile-friendly design
+* 🎭 Smooth animations (Framer Motion)
 
-**Use Lovable**
+---
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and start prompting.
+## 🛠️ Tech Stack
 
-Changes made via Lovable will be committed automatically to this repo.
+* React (Vite)
+* Tailwind CSS
+* Framer Motion
+* Fetch API
 
-**Use your preferred IDE**
+---
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+## 📁 Project Structure
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+```id="u9c0c5"
+frontend/
+│── src/
+│── public/
+│── index.html
+│── package.json
+│── .env
+│── .gitignore
+```
 
-Follow these steps:
+---
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+## ⚙️ Setup Instructions
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+### 1️⃣ Clone the repository
 
-# Step 3: Install the necessary dependencies.
-npm i
+```id="7c0jtf"
+git clone https://github.com/your-username/frontend-repo.git
+cd frontend-repo
+```
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
+---
+
+### 2️⃣ Install dependencies
+
+```id="1y9y2x"
+npm install
+```
+
+---
+
+### 3️⃣ Create `.env` file
+
+```id="m9wz9h"
+VITE_API_URL=http://localhost:5000
+```
+
+> ⚠️ Use your backend URL when deployed
+
+---
+
+### 4️⃣ Run locally
+
+```id="9kq4s1"
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
+---
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+## 🔗 API Integration
 
-**Use GitHub Codespaces**
+The frontend communicates with backend using:
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+```id="u3cgnm"
+const API = import.meta.env.VITE_API_URL;
 
-## What technologies are used for this project?
+fetch(`${API}/send-email`, {
+  method: "POST",
+  body: formData,
+});
+```
 
-This project is built with:
+---
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+## 🚀 Deployment (Netlify)
 
-## How can I deploy this project?
+1. Push code to GitHub
+2. Go to https://netlify.com
+3. Click **Add new site → Import from Git**
+4. Select your frontend repo
 
-Simply open [Lovable](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and click on Share -> Publish.
+### Build Settings:
 
-## Can I connect a custom domain to my Lovable project?
+```id="jrcm3g"
+Build command: npm run build
+Publish directory: dist
+```
 
-Yes, you can!
+---
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+## 🔐 Environment Variables (Netlify)
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+Add in Netlify dashboard:
+
+```id="c9v5g0"
+VITE_API_URL=https://your-backend.onrender.com
+```
+
+---
+
+## ⚠️ Notes
+
+* `.env` file should not be committed
+* Make sure backend CORS allows Netlify domain
+* Update API URL after backend deployment
+
+---
+
+## 👩‍💻 Author
+
+Developed by She's Executives Team
+
+---
+
+## 📄 License
+
+© 2026 She's Executives. All rights reserved.
+
+This project is proprietary and confidential. Unauthorized use, copying, or distribution is prohibited.
