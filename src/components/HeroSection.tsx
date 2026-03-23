@@ -83,13 +83,17 @@ return (
 
         <div
           ref={prevRef}
-          className="absolute inset-0 bg-cover bg-[center_2%]"
+          className={`absolute inset-0 bg-cover bg-[center_2%] ${
+            images[prev] === img3 ? "bg-[80%_center] md:bg-[center_2%]" : ""
+          }`}
           style={{ backgroundImage: `url(${images[prev]})` }}
         />
 
         <div
           ref={currentRef}
-          className="absolute inset-0 bg-cover bg-[center_2%]" 
+          className={`absolute inset-0 bg-cover bg-[center_2%] ${
+            images[current] === img3 ? "bg-[80%_center] md:bg-[center_2%]" : ""
+          }`}
           style={{ backgroundImage: `url(${images[current]})` }}
         />
 

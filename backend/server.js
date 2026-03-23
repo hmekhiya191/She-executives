@@ -12,6 +12,8 @@ console.log("🔥 BACKEND FILE IS RUNNING");
 /* ================= CORS ================= */
 const allowedOrigins = [
   "http://localhost:8080",
+  "https://she-executives.netlify.app",
+  "https://sheexecutives.com/"
   
 ];
 
@@ -228,7 +230,7 @@ await transporter.sendMail({
         <div style="background:linear-gradient(135deg,#0ea5e9,#0284c7); padding:20px; text-align:center;">
         
         <img 
-            src="https://she-executives.vercel.app/She-logo.png"  
+            src="https://sheexecutives.com/She-logo.png"  
             alt="She's Executives"
             style="height:60px; object-fit:contain;"
         /> 
