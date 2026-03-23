@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState  } from "react";
 import { Link } from "react-router-dom";
 import {
   Target,
@@ -101,6 +101,7 @@ const ShesHired = () => {
     offset: ["start end", "end start"],
   });
 
+
   const pinY = useTransform(scrollYProgress, [0, 1], [50, -50]);
   const pinRotate = useTransform(scrollYProgress, [0, 1], [-8, 8]); 
 
@@ -109,6 +110,7 @@ const ShesHired = () => {
     setPledgeSubmitted(true);
     setPledgeEmail("");
   };
+
 
   return (
     <div className="min-h-screen bg-background">

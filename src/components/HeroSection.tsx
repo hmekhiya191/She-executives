@@ -50,7 +50,7 @@ const HeroSection = () => {
     const img = new Image();
     img.src = src;
   });
-  
+
     return () => clearInterval(interval);
   }, [current]);
 
@@ -93,7 +93,7 @@ return (
     backgroundImage: `url(${images[prev]})`,
     backgroundPosition:
       images[prev] === img3
-        ? "80% center"   // 🔥 force right focus
+        ? "80% 2%"   // 🔥 force right focus
         : "center 2%",
   }}
 />
@@ -105,7 +105,7 @@ return (
     backgroundImage: `url(${images[current]})`,
     backgroundPosition:
       images[current] === img3
-        ? "80% center"   // 🔥 force right focus
+        ? "80% 2%"   // 🔥 force right focus
         : "center 2%",
   }}
 />
@@ -188,7 +188,7 @@ return (
 
       
 
-          <h2 className="font-poppins text-5xl md:text-5xl font-semibold text-[#1a1a1a] mb-6 leading-tight">
+          <h2 className="font-poppins text-3xl sm:text-4xl md:text-5xl font-semibold text-[#1a1a1a] mb-6 leading-snug md:leading-tight">
             Successful High Earners
           </h2>
             {/* premium divider */}

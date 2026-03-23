@@ -1,10 +1,20 @@
 import { motion } from "framer-motion";
-import logo from "@/assets/white_logo_transparent_background.png"; // 👈 replace with your actual logo path
+import logo from "@/assets/white_logo_transparent_background.png";
 
 const Loader = () => {
   return (
-    <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-[#0f203c]">
+    <motion.div
+      className="fixed inset-0 z-[9999] flex items-center justify-center bg-[#0f203c]"
       
+      // 👇 ENTER FROM TOP
+      initial={{ y: "-100%" }}
+      animate={{ y: 0 }}
+
+      // 👇 EXIT TO TOP
+      exit={{ y: "-100%" }}
+
+      transition={{ duration: 0.8, ease: "easeInOut" }}
+    >
       <div className="flex flex-col items-center">
 
         {/* LOGO */}
@@ -12,9 +22,9 @@ const Loader = () => {
           src={logo}
           alt="She's Executives"
           className="w-28 mb-6"
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.3 }}
         />
 
         {/* LOADING BAR */}
@@ -42,7 +52,7 @@ const Loader = () => {
         </motion.p>
 
       </div>
-    </div>
+    </motion.div>
   );
 };
 
