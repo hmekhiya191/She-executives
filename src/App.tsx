@@ -17,6 +17,22 @@ import ServicesSection from "./components/ServicesSection.tsx";
 
 import ScrollToTop from "./components/ui/ScrollToTop";
 import Loader from "./components/Loader.tsx";
+import preloadImages from "@/components/ui/preloadImages";
+
+// ✅ ALL IMPORTANT IMAGES
+import img1 from "@/assets/hero1.jpg";
+import img2 from "@/assets/hero2.jpg";
+import img3 from "@/assets/hero3.png";
+import img4 from "@/assets/hero4.jpg";
+import img5 from "@/assets/hero5.jpg";
+
+import elearningImg from "@/assets/elearning.png";
+import mentorshipImg from "@/assets/mentorship.png";
+import shesHiredHero from "@/assets/hero-diversity.jpg";
+
+import executivePlacement from "@/assets/executive-placement.jpg";
+import directHire from "@/assets/direct-hire.jpg";
+import hrConsulting from "@/assets/hr-consulting.jpg";
 
 const queryClient = new QueryClient();
 
@@ -24,32 +40,38 @@ const App = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const images = Array.from(document.images);
+    const loadAssets = async () => {
+      try {
+        const images = [
+          img1,
+          img2,
+          img3,
+          img4,
+          img5,
+          elearningImg,
+          mentorshipImg,
+          shesHiredHero,
+          executivePlacement,
+          directHire,
+          hrConsulting,
+        ];
 
-    let loaded = 0;
+        // ✅ PRELOAD ALL IMAGES
+        await preloadImages(images);
 
-    const done = () => {
-      loaded++;
-      if (loaded === images.length) {
-        setTimeout(() => setLoading(false), 2500); // 👈 min 2.5s
+        // ✅ MINIMUM LOADER TIME (smooth UX)
+        setTimeout(() => {
+          setLoading(false);
+        }, 2500);
+
+      } catch (err) {
+        console.error("Image preload error:", err);
+        setLoading(false);
       }
     };
 
-    if (images.length === 0) {
-      setTimeout(() => setLoading(false), 2500);
-      return;
-    }
-
-    images.forEach((img) => {
-      if (img.complete) {
-        done();
-      } else {
-        img.onload = done;
-        img.onerror = done;
-      }
-    });
-
-  }, []); // ✅ ONLY RUN ONCE
+    loadAssets();
+  }, []);
 
   return (
     <QueryClientProvider client={queryClient}>
@@ -59,11 +81,12 @@ const App = () => {
 
         <BrowserRouter>
 
-          {/* ✅ Loader ONLY FIRST TIME */}
+          {/* ✅ SMOOTH LOADER (ENTRY + EXIT) */}
           <AnimatePresence mode="wait">
             {loading && <Loader key="loader" />}
           </AnimatePresence>
 
+          {/* ✅ SHOW APP AFTER LOADING */}
           {!loading && (
             <>
               <ScrollToTop />
